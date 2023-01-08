@@ -1,13 +1,20 @@
 import { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { setActiveSortName } from '../Redux/Slices/filterSlice';
+
+export const sortList = [
+  { name: 'популярности', sortProperty: 'rating' },
+  { name: 'цене', sortProperty: 'price' },
+  { name: 'алфавиту', sortProperty: 'title' },
+];
 
 function Sort() {
+  const dispatch = useDispatch();
+  const activeName = useSelector((state) => state.filterSlice.activeSort.name);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
-  const [activeSortName, setActiveSortName] = useState(0);
-  const sortNames = ['популярности', 'цене', 'алфавиту'];
-  const activeName = sortNames[activeSortName];
 
-  const onClickSortList = (i) => {
-    setActiveSortName(i);
+  const onClickSortList = (obj) => {
+    dispatch(setActiveSortName(obj));
     setIsPopupOpen(false);
   };
 
@@ -31,9 +38,12 @@ function Sort() {
       {isPopupOpen && (
         <div className="sort__popup">
           <ul>
-            {sortNames.map((type, i) => (
-              <li className={activeSortName === i && 'active'} onClick={() => onClickSortList(i)}>
-                {type}
+            {sortList.map((obj, i) => (
+              <li
+                key={i}
+                className={activeName === obj.name ? 'active' : ''}
+                onClick={() => onClickSortList(obj)}>
+                {obj.name}
               </li>
             ))}
           </ul>
