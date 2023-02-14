@@ -1,16 +1,25 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import { addToCart } from '../../Redux/Slices/cartSlice';
 
-function PizzaBlock({ id, title, imageUrl, types, sizes, price }) {
+type PizzaProps = {
+  id: string;
+  title: string;
+  sizes: number[];
+  types: number[];
+  price: number;
+  imageUrl: string;
+}
+
+const PizzaBlock: React.FC<PizzaProps> = ({ id, title, imageUrl, types, sizes, price }) => {
   const dispatch = useDispatch();
-  const count = useSelector((state) => state.cartSlice.items.find((obj) => obj.id === id));
+  const count = useSelector((state: any) => state.cartSlice.items.find((obj: any) => obj.id === id));
   const checkedCount = count ? count.count : null;
-  const [activeType, setTypeIndex] = useState(0);
-  const [activeSize, setSizeIndex] = useState(0);
-  const doughType = ['тонкое', 'традиционное'];
+  const [activeType, setTypeIndex] = useState<number>(0);
+  const [activeSize, setSizeIndex] = useState<number>(0);
+  const doughType:string[] = ['тонкое', 'традиционное'];
 
   const onClickAddToCart = () => {
     const pizza = {
@@ -36,7 +45,7 @@ function PizzaBlock({ id, title, imageUrl, types, sizes, price }) {
           {types.map((type, i) => (
             <li
               key={i}
-              className={activeType === i ? 'active' : null}
+              className={activeType === i ? 'active' : ''}
               onClick={() => setTypeIndex(i)}>
               {doughType[type]}
             </li>
@@ -46,7 +55,7 @@ function PizzaBlock({ id, title, imageUrl, types, sizes, price }) {
           {sizes.map((size, i) => (
             <li
               key={i}
-              className={activeSize === i ? 'active' : null}
+              className={activeSize === i ? 'active' : ''}
               onClick={() => setSizeIndex(i)}>
               {size}
             </li>

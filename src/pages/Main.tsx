@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import qs from 'qs';
@@ -11,18 +11,19 @@ import Skeleton from '../components/PizzaBlock/Skeleton';
 import { setPathParams, selectFilter } from '../Redux/Slices/filterSlice';
 import { fetchPizzas } from '../Redux/Slices/apiSlice';
 
-function Main() {
+const Main: React.FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const firstMount = useRef(true);
   const isPath = useRef(false);
   const { categoryIndex, activeSort, searchValue } = useSelector(selectFilter);
-  const { pizzas, status } = useSelector((state) => state.apiSlice);
+  const { pizzas, status } = useSelector((state: any) => state.apiSlice);
 
   const category = categoryIndex !== 0 ? `category=${categoryIndex}` : ``;
   const search = searchValue ? `&search=${searchValue}` : ``;
 
   const getPizzas = async () => {
+    // @ts-ignore
     dispatch(fetchPizzas({ category, search, activeSort }));
 
     window.scrollTo(0, 0);
@@ -74,7 +75,7 @@ function Main() {
           ) : status === 'loading' ? (
             [...new Array(6)].map((_, i) => <Skeleton key={i} />)
           ) : (
-            pizzas.map((obj) => <PizzaBlock key={obj.id} {...obj} />)
+            pizzas.map((obj: any) => <PizzaBlock key={obj.id} {...obj} />)
           )}
         </div>
       </div>

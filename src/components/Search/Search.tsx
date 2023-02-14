@@ -1,22 +1,28 @@
 import styles from './Search.module.scss';
-import { useRef, useCallback, useState } from 'react';
+import React, { useRef, useCallback, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import debounce from 'lodash.debounce';
 
 import { setSearchValue, selectFilter } from '../../Redux/Slices/filterSlice';
 
-function Search() {
+const Search: React.FC = () => {
   const dispatch = useDispatch();
-  const [localSearchValue, setLocalSearchValue] = useState();
-  const inputRef = useRef();
+  const [localSearchValue, setLocalSearchValue] = useState<string>('');
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const onCloseClick = () => {
     setLocalSearchValue('');
     dispatch(setSearchValue(''));
-    inputRef.current.focus();
+    // два варианта обхода исхода с null в useRef,
+    //либо обычным if
+    // либо оператором опциональной последовательности, знак вопроса "?"
+/*     if (inputRef.current) {
+      inputRef.current.focus();
+    } */
+    inputRef.current?.focus();
   };
 
-  const onChangeInput = (e) => {
+  const onChangeInput = (e: any) => {
     setLocalSearchValue(e);
     updateSearchValue(e);
   };

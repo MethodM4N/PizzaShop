@@ -1,6 +1,7 @@
+import React from 'react';
 import CartBlock from '../components/CartBlock/CartBlock';
 
-function Cart() {
+const Cart: React.FC = () => {
   return (
     <>
       <CartBlock />
