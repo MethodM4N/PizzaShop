@@ -4,9 +4,10 @@ import logo from '../assets/img/pizza-logo.svg';
 import { useSelector } from 'react-redux';
 
 import Search from './Search/Search';
+import { RootState } from '../Redux/Store';
 
 const Header: React.FC = () => {
-  const { fullCount, fullPrice } = useSelector((state: any) => state.cartSlice);
+  const { fullCount, fullPrice } = useSelector((state: RootState) => state.cartSlice);
 
   return (
     <div className="header">

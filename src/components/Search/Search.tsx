@@ -18,13 +18,13 @@ const Search: React.FC = () => {
     // либо оператором опциональной последовательности, знак вопроса "?"
 /*     if (inputRef.current) {
       inputRef.current.focus();
-    } */
+    } */ 
     inputRef.current?.focus();
   };
 
-  const onChangeInput = (e: any) => {
-    setLocalSearchValue(e);
-    updateSearchValue(e);
+  const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setLocalSearchValue(e.target.value);
+    updateSearchValue(e.target.value);
   };
 
   const updateSearchValue = useCallback(
@@ -79,7 +79,7 @@ const Search: React.FC = () => {
       <input
         ref={inputRef}
         value={localSearchValue}
-        onChange={(e) => onChangeInput(e.target.value)}
+        onChange={(e) => onChangeInput(e)}
         className={styles.input}
         placeholder="Поиск пиццы ..."
       />

@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { addToCart } from '../../Redux/Slices/cartSlice';
+import { addToCart, TItems } from '../../Redux/Slices/cartSlice';
+import { RootState } from '../../Redux/Store';
 
-type PizzaProps = {
+type TPizzaBlock = {
   id: string;
   title: string;
   sizes: number[];
@@ -13,23 +14,23 @@ type PizzaProps = {
   imageUrl: string;
 }
 
-const PizzaBlock: React.FC<PizzaProps> = ({ id, title, imageUrl, types, sizes, price }) => {
+const PizzaBlock: React.FC<TPizzaBlock> = ({ id, title, imageUrl, types, sizes, price }) => {
   const dispatch = useDispatch();
-  const count = useSelector((state: any) => state.cartSlice.items.find((obj: any) => obj.id === id));
+  const count = useSelector((state: RootState) => state.cartSlice.items.find((obj) => obj.id === id));
   const checkedCount = count ? count.count : null;
   const [activeType, setTypeIndex] = useState<number>(0);
   const [activeSize, setSizeIndex] = useState<number>(0);
   const doughType:string[] = ['тонкое', 'традиционное'];
 
   const onClickAddToCart = () => {
-    const pizza = {
+    const pizza: TItems = {
       id,
       title,
       price,
       imageUrl,
       doughType: doughType[activeType],
       size: sizes[activeSize],
-      count: null,
+      count: 0,
     };
     dispatch(addToCart(pizza));
   };

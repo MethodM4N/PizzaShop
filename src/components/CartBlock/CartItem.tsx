@@ -1,9 +1,9 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 
-import { addToCart, removeItem, minusItem } from '../../Redux/Slices/cartSlice';
+import { addToCart, removeItem, minusItem, TItems } from '../../Redux/Slices/cartSlice';
 
-type CartProps = {
+type TCartItem = {
   id: string;
   title: string;
   size: number;
@@ -13,22 +13,22 @@ type CartProps = {
   imageUrl: string;
 }
 
-const CartItem: React.FC<CartProps> = ({ id, title, size, doughType, price, count, imageUrl }) => {
+const CartItem: React.FC<TCartItem> = ({ id, title, size, doughType, price, count, imageUrl }) => {
   const dispatch = useDispatch();
 
   const onClickAddToCart = () => {
-    const item = { id, price };
+    const item = { id, price } as TItems;
     dispatch(addToCart(item));
   };
 
   const onClickMinusFromCart = () => {
-    const item = { id, price };
+    const item = id;
     dispatch(minusItem(item));
   };
 
   const onClickRemoveFromCart = () => {
     if (window.confirm('Вы действительно хотите удалить продукт из корзины?')) {
-      const item = { id, price };
+      const item = id;
       dispatch(removeItem(item));
     }
   };

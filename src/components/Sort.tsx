@@ -1,32 +1,37 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { setActiveSortName } from '../Redux/Slices/filterSlice';
+import { setActiveSortName, SortPropertyEnum } from '../Redux/Slices/filterSlice';
+import { RootState } from '../Redux/Store';
 
-type SortItem = {
-    name: String,
-    sortProperty: String
+export type TSortList = {
+    name: string,
+    sortProperty: SortPropertyEnum,
 }
 
-export const sortList: SortItem[] = [
-  { name: 'популярности', sortProperty: 'rating' },
-  { name: 'цене', sortProperty: 'price' },
-  { name: 'алфавиту', sortProperty: 'title' },
+export const sortList: TSortList[] = [
+  { name: 'популярности', sortProperty: SortPropertyEnum.RATING },
+  { name: 'цене', sortProperty: SortPropertyEnum.PRICE },
+  { name: 'алфавиту', sortProperty: SortPropertyEnum.TITLE },
 ];
 
 const Sort: React.FC = () => {
   const dispatch = useDispatch();
   const popup = useRef<HTMLDivElement>(null);
-  const activeName = useSelector((state: any) => state.filterSlice.activeSort.name);
+  const activeName = useSelector((state: RootState) => state.filterSlice.activeSort.name);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
-  const onClickSortList = (obj: SortItem) => {
+  const onClickSortList = (obj: TSortList) => {
     dispatch(setActiveSortName(obj));
     setIsPopupOpen(false);
   };
 
   useEffect(() => {
-    const closePopup = (event: any) => {
-      if (!event.composedPath().includes(popup.current)) {
+    const closePopup = (event: MouseEvent) => {
+      const _event = event as MouseEvent & {
+        path: Node[];
+      };
+
+      if (popup.current && !_event.path.includes(popup.current)) {
         setIsPopupOpen(false);
       }
     };
