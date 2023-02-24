@@ -4,12 +4,12 @@ import { useSelector } from 'react-redux';
 import qs from 'qs';
 
 import Categories from '../components/Categories';
-import Sort, { sortList, TSortList } from '../components/Sort';
+import Sort, { sortList } from '../components/Sort';
 import PizzaBlock from '../components/PizzaBlock/PizzaBlock';
 import Skeleton from '../components/PizzaBlock/Skeleton';
 
 import { setPathParams, selectFilter, TActiveSort } from '../Redux/Slices/filterSlice';
-import { fetchPizzas, TFetchPizzasArgs } from '../Redux/Slices/apiSlice';
+import { fetchPizzas } from '../Redux/Slices/apiSlice';
 import { RootState, useAppDispatch } from '../Redux/Store';
 
 const Main: React.FC = () => {
@@ -64,7 +64,7 @@ const Main: React.FC = () => {
       <div className="container">
         <div className="content__top">
           <Categories />
-          <Sort />
+          <Sort activeName={activeSort}/>
         </div>
         <h2 className="content__title">Все пиццы</h2>
         <div className="content__items">

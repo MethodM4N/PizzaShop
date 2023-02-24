@@ -41,7 +41,6 @@ export const filterSlice = createSlice({
       state.activeSort = action.payload;
     },
     setPathParams(state, action) {
-      console.log(action.payload);
       state.categoryIndex = Number(action.payload.categoryIndex);
       state.activeSort = action.payload.activeSort;
     },

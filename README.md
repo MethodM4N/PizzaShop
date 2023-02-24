@@ -42,4 +42,7 @@ if (!event.composedPath().includes(popup.current))
 - Добавил статическую типизацию посредством внедрения TypeScript (type,
 оператор опциональной последовательности "?" in Search.tsx, Sort.tsx path: Node[] - нажатие на BodyElement)
 - Типизация Redux Toolkit (типизировал стейты при помощи интерфейсов/типов, создал глобальный тип нашего хранилища RootState в Store.ts, типизировал экшены action: PayloadAction<Number...>, выполнил сокращение type при помощи Record в apiSlice, типизировал однотипные асинхронные запросы в apiSlice, использовал enum apiSlice аналог объекта в typeScript, создал типизированный Dispatch ()
+- Произвел оптимизацию проекта, посредством библиотеки ahooks (хук useWhyDidYouUpdate) отследил почему производится ререндер компонента, ререндер был устранен с использованием React.memo
+- Организовал сохранение пицц в localStorage
+-
 ```

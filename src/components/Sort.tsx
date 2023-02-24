@@ -1,11 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { setActiveSortName, SortPropertyEnum } from '../Redux/Slices/filterSlice';
-import { RootState } from '../Redux/Store';
+import { setActiveSortName, SortPropertyEnum, TActiveSort } from '../Redux/Slices/filterSlice';
 
 export type TSortList = {
     name: string,
     sortProperty: SortPropertyEnum,
+}
+
+type TActiveName = {
+  activeName: TActiveSort,
 }
 
 export const sortList: TSortList[] = [
@@ -14,10 +17,9 @@ export const sortList: TSortList[] = [
   { name: 'алфавиту', sortProperty: SortPropertyEnum.TITLE },
 ];
 
-const Sort: React.FC = () => {
+const Sort: React.FC<TActiveName> = React.memo(({activeName}) => {
   const dispatch = useDispatch();
   const popup = useRef<HTMLDivElement>(null);
-  const activeName = useSelector((state: RootState) => state.filterSlice.activeSort.name);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   const onClickSortList = (obj: TSortList) => {
@@ -58,7 +60,7 @@ const Sort: React.FC = () => {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span onClick={() => setIsPopupOpen(!isPopupOpen)}>{activeName}</span>
+        <span onClick={() => setIsPopupOpen(!isPopupOpen)}>{activeName.name}</span>
       </div>
       {isPopupOpen && (
         <div className="sort__popup">
@@ -66,7 +68,7 @@ const Sort: React.FC = () => {
             {sortList.map((obj, i) => (
               <li
                 key={i}
-                className={activeName === obj.name ? 'active' : ''}
+                className={activeName.name === obj.name ? 'active' : ''}
                 onClick={() => onClickSortList(obj)}>
                 {obj.name}
               </li>
@@ -76,6 +78,6 @@ const Sort: React.FC = () => {
       )}
     </div>
   );
-}
+});
 
 export default Sort;

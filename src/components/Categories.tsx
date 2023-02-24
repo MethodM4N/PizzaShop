@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { setCategoryIndex } from '../Redux/Slices/filterSlice';
 import { RootState } from '../Redux/Store';
 
-const Categories: React.FC = () => {
+const Categories: React.FC = React.memo(() => {
   const category = ['Все', 'Мясные', 'Вегетарианские', 'Гриль', 'Острые', 'Закрытые'];
   const dispatch = useDispatch();
   const categoryIndex = useSelector((state: RootState) => state.filterSlice.categoryIndex);
@@ -22,6 +22,6 @@ const Categories: React.FC = () => {
       </ul>
     </div>
   );
-}
+})
 
 export default Categories;
