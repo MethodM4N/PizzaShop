@@ -1,5 +1,5 @@
 import React from 'react';
-import CartBlock from '../components/CartBlock/CartBlock';
+import { CartBlock } from '../components/index';
 
 const Cart: React.FC = () => {
   return (
@@ -7,6 +7,6 @@ const Cart: React.FC = () => {
       <CartBlock />
     </>
   );
-}
+};
 
 export default Cart;

@@ -3,10 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import qs from 'qs';
 
-import Categories from '../components/Categories';
-import Sort, { sortList } from '../components/Sort';
-import PizzaBlock from '../components/PizzaBlock/PizzaBlock';
-import Skeleton from '../components/PizzaBlock/Skeleton';
+import { sortList } from '../components/Sort';
+import { Categories, Sort, PizzaBlock, Skeleton } from '../components/index';
 
 import { setPathParams, selectFilter, TActiveSort } from '../Redux/Slices/filterSlice';
 import { fetchPizzas } from '../Redux/Slices/apiSlice';
@@ -25,13 +23,13 @@ const Main: React.FC = () => {
 
   const getPizzas = async () => {
     dispatch(fetchPizzas({ category, search, activeSort }));
-    
+
     window.scrollTo(0, 0);
   };
 
   useEffect(() => {
     if (window.location.search) {
-      const path = (qs.parse(window.location.search.substring(1)) as unknown) as TActiveSort;
+      const path = qs.parse(window.location.search.substring(1)) as unknown as TActiveSort;
       const activeSort = sortList.find((obj) => obj.sortProperty === path.sortProperty);
       if (activeSort) {
         dispatch(setPathParams({ ...path, activeSort }));
@@ -64,7 +62,7 @@ const Main: React.FC = () => {
       <div className="container">
         <div className="content__top">
           <Categories />
-          <Sort activeName={activeSort}/>
+          <Sort activeName={activeSort} />
         </div>
         <h2 className="content__title">Все пиццы</h2>
         <div className="content__items">
@@ -83,6 +81,6 @@ const Main: React.FC = () => {
       </div>
     </>
   );
-}
+};
 
 export default Main;

@@ -4,6 +4,7 @@ import logo from '../assets/img/pizza-logo.svg';
 import { useSelector } from 'react-redux';
 
 import Search from './Search/Search';
+
 import { RootState } from '../Redux/Store';
 
 const Header: React.FC = () => {
@@ -11,14 +12,14 @@ const Header: React.FC = () => {
   const { fullCount, fullPrice, items } = useSelector((state: RootState) => state.cartSlice);
   const firstMount = useRef(true);
 
-  useEffect (() => {
+  useEffect(() => {
     if (!firstMount.current) {
       const json = JSON.stringify(items);
       localStorage.setItem('cart', json);
     }
     firstMount.current = false;
-  }, [items])
-  
+  }, [items]);
+
   return (
     <div className="header">
       <div className="container">
@@ -70,6 +71,6 @@ const Header: React.FC = () => {
       </div>
     </div>
   );
-}
+};
 
 export default Header;
