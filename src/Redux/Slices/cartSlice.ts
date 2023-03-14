@@ -10,7 +10,7 @@ export type TItems = {
   price: number;
   count: number;
   imageUrl: string;
-}
+};
 
 export interface ICartSlice {
   fullCount: number;
@@ -23,7 +23,7 @@ const { items, fullPrice, fullCount } = getLocalStorageCart();
 const initialState: ICartSlice = {
   fullCount,
   fullPrice,
-  items
+  items,
 };
 
 export const cartSlice = createSlice({
@@ -39,7 +39,7 @@ export const cartSlice = createSlice({
       } else {
         action.payload.count = 1;
         state.items.push(action.payload);
-      } 
+      }
     },
     minusItem(state, action: PayloadAction<string>) {
       /* state.fullPrice = state.fullPrice - action.payload.price;
