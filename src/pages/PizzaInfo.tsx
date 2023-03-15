@@ -36,15 +36,15 @@ const PizzaInfo: React.FC = () => {
   } else {
     return (
       <>
-        <div className="container">
+        <div className="pizza-info__container">
           <img src={pizza.imageUrl} />
           <h2>{pizza.title}</h2>
           <p>Некое описание какой то пиццы</p>
           <h4>{pizza.price} ₽</h4>
+          <Link to="/" className="button button--outline button--add go-back-btn">
+            <span>Вернуться назад</span>
+          </Link>
         </div>
-        <Link to="/" className="button button--outline button--add go-back-btn">
-          <span>Вернуться назад</span>
-        </Link>
       </>
     );
   }

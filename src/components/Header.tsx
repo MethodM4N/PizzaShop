@@ -39,7 +39,7 @@ const Header: React.FC = () => {
             </div>
           </Link>
         </div>
-        {(location.pathname !== '/cart' || isPizzaPath() == '/pizza/') && <Search />}
+        {location.pathname !== '/cart' && isPizzaPath() !== '/pizza/' && <Search />}
         {(location.pathname == '/cart' || isPizzaPath() == '/pizza/') && fullCount === 0 ? null : (
           <div className="header__cart">
             <Link to="/cart" className="button button__cart">
