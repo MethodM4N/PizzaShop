@@ -18,13 +18,19 @@ type TPizzaBlock = {
 
 const PizzaBlock: React.FC<TPizzaBlock> = ({ id, title, imageUrl, types, sizes, price }) => {
   const dispatch = useDispatch();
-  const count = useSelector((state: RootState) =>
-    state.cartSlice.items.find((obj) => obj.id === id),
-  );
-  const checkedCount = count ? count.count : null;
   const [activeType, setTypeIndex] = useState<number>(0);
   const [activeSize, setSizeIndex] = useState<number>(0);
   const doughType: string[] = ['тонкое', 'традиционное'];
+
+  const count = useSelector((state: RootState) =>
+    state.cartSlice.items.find(
+      (obj) =>
+        obj.id === id + `/${sizes[activeSize]}` + `/${doughType[activeType]}` &&
+        obj.size === sizes[activeSize],
+    ),
+  );
+
+  const checkedCount = count ? count.count : null;
 
   const onClickAddToCart = () => {
     const pizza: TItems = {

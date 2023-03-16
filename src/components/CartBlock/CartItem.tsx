@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 
-import { addToCart, removeItem, minusItem, TItems } from '../../Redux/Slices/cartSlice';
+import { plusItem, removeItem, minusItem } from '../../Redux/Slices/cartSlice';
 
 import cross from '../../assets/img/cross.svg';
 import minus from '../../assets/img/minus.svg';
@@ -21,8 +21,8 @@ const CartItem: React.FC<TCartItem> = ({ id, title, size, doughType, price, coun
   const dispatch = useDispatch();
 
   const onClickAddToCart = () => {
-    const item = { id, price } as TItems;
-    dispatch(addToCart(item));
+    const item = id;
+    dispatch(plusItem(item));
   };
 
   const onClickMinusFromCart = () => {

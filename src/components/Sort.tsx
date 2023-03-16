@@ -13,6 +13,10 @@ type TActiveName = {
   activeName: TActiveSort;
 };
 
+type PopupClick = MouseEvent & {
+  path: Node[];
+};
+
 export const sortList: TSortList[] = [
   { name: 'популярности', sortProperty: SortPropertyEnum.RATING },
   { name: 'цене', sortProperty: SortPropertyEnum.PRICE },
@@ -31,15 +35,12 @@ const Sort: React.FC<TActiveName> = React.memo(({ activeName }) => {
 
   useEffect(() => {
     const closePopup = (event: MouseEvent) => {
-      const _event = event as MouseEvent & {
-        path: Node[];
-      };
+      const _event = event as PopupClick;
 
-      if (popup.current && !_event.path.includes(popup.current)) {
+      if (popup.current && !_event.composedPath().includes(popup.current)) {
         setIsPopupOpen(false);
       }
     };
-
     if (isPopupOpen) {
       document.body.addEventListener('click', closePopup);
     }
